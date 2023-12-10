@@ -42,5 +42,10 @@ export const api = {
     login: async (email: string, password: string) => {
         let json = await request('post', '/auth/login', {email, password})
         return json
+    },
+    logout: async () => {
+        let token = localStorage.getItem('token')
+        let json = await request('post', '/auth/logout', {}, token)
+        return json
     }
 }

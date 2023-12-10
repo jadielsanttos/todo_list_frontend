@@ -1,0 +1,18 @@
+.area_loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.area_loading .progress_bar_empty {
+    width: 170px;
+    height: 7px;
+    border: 1px solid #333;
+}
+
+.area_loading .progress_bar_empty .progress_bar_fillable {
+    height: 7px;
+    background-color: var(--color-primary);
+    transition: .3s;
+}
