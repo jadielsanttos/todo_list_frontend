@@ -56,6 +56,10 @@
     border: 1px solid var(--color-primary);
 }
 
+.section_form .box_form .form_item input:disabled {
+    opacity: 0.7;
+}
+
 .section_form .box_form .form_item .row_input_submit input[type="submit"] {
     width: 100%;
     padding: 10px 20px;

@@ -31,8 +31,8 @@ export const BoxForm = () => {
                 redirect.push('/admin')
             }
         }else {
-            setLoading(false)
             setError('Preencha todos os campos')
+            setLoading(false)
         }
     }
 
@@ -68,7 +68,7 @@ export const BoxForm = () => {
                     <input 
                         type="submit"
                         disabled={loading ? true : false}
-                        value={pathName == '/auth/login' ? 'Entrar' : 'Cadastrar'}
+                        value={!loading ? 'Concluir' : 'Carregando...'}
                         onClick={(event) => handleCLickLogin(event)}
                     />
                 </div>

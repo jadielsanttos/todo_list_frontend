@@ -18,9 +18,9 @@ const Page = () => {
 
         setInterval(() => {
             if(newWidthProgressBar < 100) {
-                setWidthProgressBar(newWidthProgressBar += 20)
+                setWidthProgressBar(newWidthProgressBar += 10)
             }
-        }, 500)
+        }, 100)
 
         if(api.getToken()) {
             let response = await api.validateToken()
