@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-top: 80px;
+    padding: 80px 0;
 }
 
 .section_form h1 {
@@ -21,6 +21,14 @@
     padding: 20px;
     border-radius: var(--border-radius-default);
     box-shadow: var(--box-shadow-default);
+}
+
+.section_form .box_form .alert_danger {
+    background-color: rgb(223, 78, 78);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
 }
 
 .section_form .box_form .form_item .row_input {
