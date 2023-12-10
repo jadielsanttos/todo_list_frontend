@@ -1,0 +1,76 @@
+.section_form {
+    max-width: 430px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 80px;
+}
+
+.section_form h1 {
+    width: 100%;
+    font-size: 35px;
+}
+
+.section_form .box_form {
+    width: inherit;
+    background-color: #444;
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: var(--border-radius-default);
+    box-shadow: var(--box-shadow-default);
+}
+
+.section_form .box_form .form_item .row_input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.section_form .box_form .form_item .row_input input {
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 15px;
+    border-radius: var(--border-radius-default);
+    border: 1px solid #555;
+    outline: 0;
+    background-color: transparent;
+    color: #fff;
+    font-size: 16px;
+}
+
+.section_form .box_form .form_item .row_input input::-webkit-input-placeholder {
+    color: #fff;
+}
+
+.section_form .box_form .form_item .row_input input:focus {
+    border: 1px solid var(--color-primary);
+}
+
+.section_form .box_form .form_item .row_input_submit input[type="submit"] {
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: var(--color-primary);
+    color: #000;
+    font-size: 17px;
+    border-radius: var(--border-radius-default);
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+}
+
+.section_form .box_form .form_item .area_bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20px;
+    gap: 10px;
+}
+
+.section_form .box_form .form_item .area_bottom .link_single {
+    text-decoration: none;
+    color: var(--color-primary);
+}

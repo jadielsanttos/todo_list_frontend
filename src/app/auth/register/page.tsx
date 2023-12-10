@@ -1,8 +1,14 @@
+import styles from '@/styles/auth/app.module.css'
+import { BoxForm } from "@/components/auth/BoxForm"
+
 const Page = () => {
     return (
-        <div>
-            Registro...
-        </div>
+        <>
+            <section className={styles.section_form}>
+                <h1>Criar conta</h1>
+                <BoxForm />
+            </section>
+        </>
     )
 }
 
