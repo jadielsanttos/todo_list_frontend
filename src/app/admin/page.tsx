@@ -5,6 +5,10 @@ import styles from '@/styles/admin/app.module.css'
 import { api } from "@/libs/api"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { SideBar } from "@/components/partials/SideBar"
+import { Loader } from "@/components/partials/Loader"
+
+import { RiMenu2Fill } from "react-icons/ri";
 
 
 const Page = () => {
@@ -54,25 +58,21 @@ const Page = () => {
     return (
         <>
             {loading &&
-                <div className={styles.area_loading}>
-                    <div className={styles.progress_bar_empty}>
-                        <div 
-                            className={styles.progress_bar_fillable}
-                            style={{width: `${widthProgressBar}%`}}
-                        >
-                        </div>
-                    </div>
-                </div>
+                <Loader widthProgressBar={widthProgressBar} />
             }            
             {!loading &&
-                <div className="">
-                    <h1>Admin</h1>
-                    <Link 
-                        href='/auth/logout' 
-                        onClick={(event) => handleClickLogout(event)}
-                    >
-                        Sair
-                    </Link>
+                <div className={styles.container}>
+                    <SideBar />
+                    <div className={styles.right_side}>
+                        <div className={styles.area_static}>
+                            <div className={styles.content_left}>
+                                <RiMenu2Fill />
+                            </div>
+                            <div className={styles.content_right}>
+                                <button className={styles.btn_add_task}>Nova tarefa</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             }
         </>

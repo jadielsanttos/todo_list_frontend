@@ -1,0 +1,63 @@
+/* Side Bar */
+.side_bar {
+    width: 225px;
+    height: 100vh;
+    border-right: var(--border-default);
+    padding: 20px;
+}
+
+.side_bar .area_top {
+    margin-bottom: 40px;
+}
+
+.side_bar .area_top h3 {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-weight: 500;
+    color: #eee;
+    font-size: 20px;
+}
+
+.side_bar .area_links nav ul {
+    list-style: none;
+}
+
+.side_bar .area_links nav ul li a {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 17px;
+    transition: .3s;
+}
+
+.side_bar .area_links nav ul li a:hover {
+    color: var(--color-primary);
+}
+
+.side_bar .area_links nav ul li a svg {
+    font-size: 22px;
+}
+
+/* Loader */
+.area_loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.area_loading .progress_bar_empty {
+    width: 170px;
+    height: 7px;
+    border: 1px solid #333;
+}
+
+.area_loading .progress_bar_empty .progress_bar_fillable {
+    height: 7px;
+    background-color: var(--color-primary);
+    transition: .3s;
+}
