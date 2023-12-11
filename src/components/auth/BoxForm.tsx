@@ -21,7 +21,17 @@ export const BoxForm = () => {
         setLoading(true)
 
         if(emailValue !== '' && passwordValue !== '') {
-            const request = await api.login(emailValue, passwordValue)
+            let request = null
+
+            switch (pathName) {
+                case '/auth/login':
+                    request = await api.login(emailValue, passwordValue)
+                    break;
+                case '/auth/register':
+                    request = await api.register(emailValue, passwordValue)
+                    break;
+            }
+
             setLoading(false)
             
             if(request.error) {
