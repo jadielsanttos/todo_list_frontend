@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import styles from '@/styles/admin/app.module.css'
 import { api } from "@/libs/api"
 import { useRouter } from "next/navigation"
@@ -9,6 +8,7 @@ import { SideBar } from "@/components/partials/SideBar"
 import { Loader } from "@/components/partials/Loader"
 
 import { RiMenu2Fill } from "react-icons/ri";
+import { data } from '@/helpers/data'
 
 
 const Page = () => {
@@ -18,13 +18,7 @@ const Page = () => {
     const redirect = useRouter()
 
     const verifyLogin = async () => {
-        let newWidthProgressBar = widthProgressBar
-
-        setInterval(() => {
-            if(newWidthProgressBar < 100) {
-                setWidthProgressBar(newWidthProgressBar += 10)
-            }
-        }, 100)
+        data.updateWidthProgressBar({widthProgressBar, setWidthProgressBar})
 
         if(api.getToken()) {
             let response = await api.validateToken()
@@ -37,18 +31,6 @@ const Page = () => {
         }else {
             redirect.push('/auth/login')
         }
-    }
-
-    const handleClickLogout = async (event: React.MouseEvent) => {
-        event.preventDefault()
-
-        let response = await api.logout()
-
-        localStorage.removeItem('token')
-
-        redirect.push('/auth/login')
-
-        return response
     }
 
     useEffect(() => {
@@ -71,6 +53,9 @@ const Page = () => {
                             <div className={styles.content_right}>
                                 <button className={styles.btn_add_task}>Nova tarefa</button>
                             </div>
+                        </div>
+                        <div>
+                            <h1>Editadas recentemente</h1>
                         </div>
                     </div>
                 </div>
