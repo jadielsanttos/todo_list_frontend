@@ -4,11 +4,13 @@ import Image from "next/image";
 
 import { MdHome, MdLogout } from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { api } from "@/libs/api";
+
 
 export const SideBar = () => {
     const redirect = useRouter()
+    const route = usePathname()
 
     const handleClickLogout = async (event: React.MouseEvent) => {
         event.preventDefault()
@@ -37,11 +39,24 @@ export const SideBar = () => {
             <div className={styles.area_links}>
                 <nav>
                     <ul>
-                        <li><Link href='/admin'><MdHome /> Home</Link></li>
-                        <li><Link href='/admin/tarefas'><FaClipboardList /> Tarefas</Link></li>
                         <li>
                             <Link 
-                                href='/auth/login'
+                                href='/admin' 
+                                className={route == '/admin' ? styles.active : ''}
+                            >
+                                <MdHome /> Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href='/admin/tarefas' 
+                                className={route == '/admin/tarefas' ? styles.active : ''}
+                            >
+                                <FaClipboardList /> Tarefas
+                            </Link>
+                        </li>
+                        <li>
+                            <Link 
+                                href='/auth/logout'
                                 onClick={(event) => handleClickLogout(event)}
                             >
                                 <MdLogout /> Sair

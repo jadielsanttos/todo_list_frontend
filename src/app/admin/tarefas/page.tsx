@@ -3,15 +3,21 @@
 import styles from "@/styles/admin/app.module.css"
 import { Loader } from "@/components/partials/Loader"
 import { SideBar } from "@/components/partials/SideBar"
+import { Header } from "@/components/partials/Header"
+import { TitlePage } from "@/components/partials/TitlePage"
+
 import { data } from "@/helpers/data"
+import { api } from "@/libs/api"
+
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { api } from "@/libs/api"
-import { RiMenu2Fill } from "react-icons/ri"
 
 const Page = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [widthProgressBar, setWidthProgressBar] = useState<number>(20)
+    const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
+
+    const titlePage: string = "Suas tarefas"
 
     const redirect = useRouter()
 
@@ -31,6 +37,10 @@ const Page = () => {
         }
     }
 
+    const toggleSideBar = () => {
+        setSideBarOpen(!sideBarOpen)
+    }
+
     useEffect(() => {
         verifyLogin()
     }, [])
@@ -41,22 +51,21 @@ const Page = () => {
                 <Loader widthProgressBar={widthProgressBar} />
             }
             {!loading &&
-                <div className={styles.container}>
-                    <SideBar />
-                    <div className={styles.right_side}>
-                        <div className={styles.area_static}>
-                            <div className={styles.content_left}>
-                                <RiMenu2Fill />
-                            </div>
-                            <div className={styles.content_right}>
-                                <button className={styles.btn_add_task}>Nova tarefa</button>
-                            </div>
+                <section className={styles.container}>
+                    {sideBarOpen &&
+                        <SideBar />
+                    }
+                    <main className={styles.right_side}>
+                        <Header 
+                            onClick={toggleSideBar}
+                        />
+                        <div className={styles.area_content_page}>
+                            <TitlePage 
+                                title={titlePage}
+                            />
                         </div>
-                        <div>
-                            <h1>Suas tarefas</h1>
-                        </div>
-                    </div>
-                </div>
+                    </main>
+                </section>
             }
         </>
     )

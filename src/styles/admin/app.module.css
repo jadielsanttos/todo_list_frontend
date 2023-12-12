@@ -5,28 +5,10 @@
 }
 
 .right_side {
-    width: calc(100% - 225px);
+    width: 100%;
     padding: 20px;
 }
 
-.right_side .area_static {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.right_side .area_static .content_left svg {
-    font-size: 23px;
-    cursor: pointer;
-}
-
-.right_side .area_static .content_right button {
-    border: 0;
-    box-shadow: var(--box-shadow-default);
-    border-radius: 50px;
-    padding: 10px 35px;
-    font-size: 17px;
-    color: #000;
-    background-color: var(--color-primary);
-    cursor: pointer;
+.area_content_page {
+    margin-top: 20px;
 }
