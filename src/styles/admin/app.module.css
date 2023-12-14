@@ -9,6 +9,27 @@
     padding: 20px;
 }
 
-.area_content_page {
+.area_content_page, .area_tasks {
     margin-top: 20px;
+}
+
+.area_tasks .task_card {
+    width: 100%;
+    border-radius: var(--border-radius-default);
+    box-shadow: var(--box-shadow-default);
+    background-color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.area_tasks .task_card .right_content_card span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
 }

@@ -13,13 +13,16 @@ import { Header } from '@/components/partials/Header'
 import { TitlePage } from '@/components/partials/TitlePage'
 
 import { User } from '@/types/User'
+import { TaskCard } from '@/components/admin/TaskCard'
+import { Task } from '@/types/Task'
 
 
 const Page = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [widthProgressBar, setWidthProgressBar] = useState<number>(20)
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
-    const [loggedUser, setLoggedUser] = useState< User | null>(null)
+    const [loggedUser, setLoggedUser] = useState<User | null>(null)
+    const [totalTasks, setTotalTasks] = useState<Task[] | null>(null)
 
     const titlePage: string = "Editadas recentemente"
 
@@ -46,14 +49,22 @@ const Page = () => {
         setSideBarOpen(!sideBarOpen)
     }
 
+    const loadTasks = async () => {
+        let response = await api.getTasks()
+        setTotalTasks(response.data)
+    }
+
     useEffect(() => {
         verifyLogin()
+        loadTasks()
     }, [])
 
     return (
         <>
             {loading &&
-                <Loader widthProgressBar={widthProgressBar} />
+                <Loader 
+                    widthProgressBar={widthProgressBar} 
+                />
             }            
             {!loading &&
                 <section className={styles.container}>
@@ -71,6 +82,17 @@ const Page = () => {
                             <TitlePage 
                                 title={titlePage}
                             />
+                            {totalTasks !== null &&
+                                <div className={styles.area_tasks}>
+                                    {totalTasks.map((item) => (
+                                        <TaskCard 
+                                            key={item.id}
+                                            title={item.title}
+                                            description={item.description}
+                                        />
+                                    ))}
+                                </div>  
+                            }
                         </div>
                     </main>
                 </section>

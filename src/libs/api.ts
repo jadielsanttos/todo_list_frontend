@@ -51,5 +51,10 @@ export const api = {
     register: async (email: string, password: string) => {
         let json = await request('post', '/auth/register', {email, password})
         return json
+    },
+    getTasks: async () => {
+        let token = localStorage.getItem('token')
+        let json = await request('get', '/tasks', {}, token)
+        return json
     }
 }

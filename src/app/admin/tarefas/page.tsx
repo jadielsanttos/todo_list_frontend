@@ -18,7 +18,7 @@ const Page = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [widthProgressBar, setWidthProgressBar] = useState<number>(20)
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
-    const [loggedUser, setLoggedUser] = useState< User | null>(null)
+    const [loggedUser, setLoggedUser] = useState<User | null>(null)
 
     const titlePage: string = "Suas tarefas"
 
@@ -52,7 +52,9 @@ const Page = () => {
     return (
         <>
             {loading &&
-                <Loader widthProgressBar={widthProgressBar} />
+                <Loader 
+                    widthProgressBar={widthProgressBar} 
+                />
             }
             {!loading &&
                 <section className={styles.container}>
