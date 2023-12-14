@@ -12,11 +12,14 @@ import { Loader } from "@/components/partials/Loader"
 import { Header } from '@/components/partials/Header'
 import { TitlePage } from '@/components/partials/TitlePage'
 
+import { User } from '@/types/User'
+
 
 const Page = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [widthProgressBar, setWidthProgressBar] = useState<number>(20)
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
+    const [loggedUser, setLoggedUser] = useState< User | null>(null)
 
     const titlePage: string = "Editadas recentemente"
 
@@ -30,6 +33,7 @@ const Page = () => {
 
             if(response.error === '') {
                 setLoading(false)
+                setLoggedUser(response.user)
             }else {
                 redirect.push('/auth/login')
             }
@@ -54,7 +58,10 @@ const Page = () => {
             {!loading &&
                 <section className={styles.container}>
                     {sideBarOpen &&
-                        <SideBar />
+                        <SideBar
+                            id={loggedUser !== null ? loggedUser.id : 0}
+                            email={loggedUser !== null ? loggedUser.email : ''}
+                        />
                     }
                     <main className={styles.right_side}>
                         <Header 

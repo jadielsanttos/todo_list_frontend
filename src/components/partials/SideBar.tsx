@@ -6,9 +6,10 @@ import { MdHome, MdLogout } from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa";
 import { useRouter, usePathname } from "next/navigation";
 import { api } from "@/libs/api";
+import { User } from "@/types/User";
 
 
-export const SideBar = () => {
+export const SideBar = ({id, email}: User) => {
     const redirect = useRouter()
     const route = usePathname()
 
@@ -33,7 +34,7 @@ export const SideBar = () => {
                         width={25} height={25} 
                         alt="Maozinha" 
                     /> 
-                        Olá, Usuário...
+                        Olá, {email.split("@", 1)}
                 </h3>
             </div>
             <div className={styles.area_links}>
