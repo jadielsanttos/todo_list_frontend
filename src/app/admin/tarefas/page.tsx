@@ -7,18 +7,21 @@ import { Header } from "@/components/partials/Header"
 import { TitlePage } from "@/components/partials/TitlePage"
 
 import { User } from "@/types/User"
+import { Task } from "@/types/Task"
 
 import { data } from "@/helpers/data"
 import { api } from "@/libs/api"
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { TaskCard } from "@/components/admin/TaskCard"
 
 const Page = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [widthProgressBar, setWidthProgressBar] = useState<number>(20)
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
     const [loggedUser, setLoggedUser] = useState<User | null>(null)
+    const [totalTasks, setTotalTasks] = useState<Task[] | null>(null)
 
     const titlePage: string = "Suas tarefas"
 
@@ -45,8 +48,14 @@ const Page = () => {
         setSideBarOpen(!sideBarOpen)
     }
 
+    const loadTasks = async () => {
+        let response = await api.getTasks()
+        setTotalTasks(response.data)
+    }
+
     useEffect(() => {
         verifyLogin()
+        loadTasks()
     }, [])
 
     return (
@@ -72,6 +81,22 @@ const Page = () => {
                             <TitlePage 
                                 title={titlePage}
                             />
+                            {totalTasks !== null &&
+                                <div className={styles.area_tasks}>
+                                    {totalTasks.map((item) => (
+                                        <TaskCard 
+                                            key={item.id}
+                                            title={item.title}
+                                            description={item.description}
+                                        />
+                                    ))}
+                                </div>  
+                            }
+                            {totalTasks?.length == 0 &&
+                                <div className={styles.area_no_results}>
+                                    <span>Não há tarefas a serem exibidas...</span>
+                                </div>
+                            }
                         </div>
                     </main>
                 </section>

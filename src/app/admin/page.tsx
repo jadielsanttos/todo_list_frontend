@@ -4,6 +4,8 @@ import styles from '@/styles/admin/app.module.css'
 import { api } from "@/libs/api"
 import { data } from '@/helpers/data'
 
+import moment from "moment"
+
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -23,6 +25,7 @@ const Page = () => {
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
     const [loggedUser, setLoggedUser] = useState<User | null>(null)
     const [totalTasks, setTotalTasks] = useState<Task[] | null>(null)
+    const [msgUpdatedAt, setMsgUpdatedAt] = useState<string>('')
 
     const titlePage: string = "Editadas recentemente"
 
@@ -50,8 +53,40 @@ const Page = () => {
     }
 
     const loadTasks = async () => {
-        let response = await api.getTasks()
+        const response = await api.getTasks()
+
+        const data = response.data
+
+        for(let i in data) {
+            const updated_at_formated = data[i].updated_at
+            calculateDiffBetweenDates(updated_at_formated)
+        }
+
         setTotalTasks(response.data)
+    }
+
+    const calculateDiffBetweenDates = (updated_at: Date) => {
+        const targetDate = new Date(updated_at).toLocaleString('pt-BR', {timeZone: 'UTC'})
+        const currentDate = new Date().toLocaleString('pt-BR', {timeZone: 'UTC'})
+        const difference = moment(targetDate, "DD/MM/YYYY HH:mm:ss").diff(moment(currentDate, "DD/MM/YYYY HH:mm:ss"))
+        
+        const minutes = Math.abs(Math.round(moment.duration(difference).asMinutes()))
+        const hours = Math.abs(Math.round(moment.duration(difference).asHours()))
+        const days = Math.abs(Math.round(moment.duration(difference).asDays()))
+
+        if(days > 0) {
+            setMsgUpdatedAt(`Editado há ${days}d atrás`)
+        }
+
+        if(hours > 0 && hours <= 24) {
+            setMsgUpdatedAt(`Editado há ${hours}h atrás`)
+        }
+
+        if(minutes > 0 && minutes <= 60) {
+            setMsgUpdatedAt(`Editado há ${minutes}m atrás`)
+        }else {
+            setMsgUpdatedAt(`Editado agora mesmo`)
+        }
     }
 
     useEffect(() => {
@@ -88,10 +123,15 @@ const Page = () => {
                                         <TaskCard 
                                             key={item.id}
                                             title={item.title}
-                                            description={item.description}
+                                            updated_at={msgUpdatedAt}
                                         />
                                     ))}
                                 </div>  
+                            }
+                            {totalTasks?.length == 0 &&
+                                <div className={styles.area_no_results}>
+                                    <span>Não há tarefas a serem exibidas...</span>
+                                </div>
                             }
                         </div>
                     </main>
