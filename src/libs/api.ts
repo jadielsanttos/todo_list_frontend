@@ -52,9 +52,10 @@ export const api = {
         let json = await request('post', '/auth/register', {email, password})
         return json
     },
-    getTasks: async () => {
+    getTasks: async (order?: string) => {
         let token = localStorage.getItem('token')
-        let json = await request('get', '/tasks', {}, token)
+        let endPoint = order ? `/tasks?order=${order}` : '/tasks'
+        let json = await request('get', endPoint, {}, token)
         return json
     }
 }

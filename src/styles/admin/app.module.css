@@ -22,7 +22,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.area_tasks .task_card .left_content_card {
+    width: 120px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.area_tasks .task_card .middle_content_card .span_single {
+    display: block;
+    width: 220px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .area_tasks .task_card .right_content_card span {

@@ -19,7 +19,7 @@ export const TaskCard = ({key, title, description, updated_at}: Props) => {
                     <span>{updated_at}</span>
                 }
                 {description &&
-                    <span>{description}</span>
+                    <span className={styles.span_single}>{description}</span>
                 }
             </div>
             <div className={styles.right_content_card}>

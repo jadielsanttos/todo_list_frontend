@@ -49,7 +49,7 @@ const Page = () => {
     }
 
     const loadTasks = async () => {
-        let response = await api.getTasks()
+        const response = await api.getTasks()
         setTotalTasks(response.data)
     }
 

@@ -25,7 +25,7 @@ const Page = () => {
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
     const [loggedUser, setLoggedUser] = useState<User | null>(null)
     const [totalTasks, setTotalTasks] = useState<Task[] | null>(null)
-    const [msgUpdatedAt, setMsgUpdatedAt] = useState<string>('')
+    const [msgUpdatedAt, setMsgUpdatedAt] = useState<string>('Editado agora mesmo')
 
     const titlePage: string = "Editadas recentemente"
 
@@ -53,7 +53,8 @@ const Page = () => {
     }
 
     const loadTasks = async () => {
-        const response = await api.getTasks()
+        const order = 'updated_at'
+        const response = await api.getTasks(order)
 
         const data = response.data
 
@@ -84,8 +85,6 @@ const Page = () => {
 
         if(minutes > 0 && minutes <= 60) {
             setMsgUpdatedAt(`Editado há ${minutes}m atrás`)
-        }else {
-            setMsgUpdatedAt(`Editado agora mesmo`)
         }
     }
 
