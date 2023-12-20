@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { api } from '@/libs/api'
 import { FormEvent, useState } from 'react'
+import { ErrorMessage } from '../partials/ErrorMessage'
 
 export const BoxForm = () => {
     const [emailValue, setEmailValue] = useState<string>('')
@@ -49,9 +50,9 @@ export const BoxForm = () => {
     return (
         <div className={styles.box_form}>
             {error !== '' &&
-                <div className={styles.alert_danger}>
-                    <span>{error}</span>
-                </div>
+                <ErrorMessage 
+                    error={error}
+                />
             }
             <form className={styles.form_item}>
                 <div className={styles.row_input}>

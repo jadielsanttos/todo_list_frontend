@@ -94,3 +94,12 @@
     font-size: 30px;
     font-weight: 500;
 }
+
+/* Error Message */
+.alert_danger {
+    background-color: rgb(223, 78, 78);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}

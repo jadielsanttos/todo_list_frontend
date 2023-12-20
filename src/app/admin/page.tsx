@@ -56,10 +56,10 @@ const Page = () => {
         const order = 'updated_at'
         const response = await api.getTasks(order)
 
-        const data = response.data
+        const responseData = response.data
 
-        for(let i in data) {
-            const updated_at = data[i].updated_at
+        for(let i in responseData) {
+            const updated_at = responseData[i].updated_at
             data.calculateDiffBetweenDates({updated_at, setMsgUpdatedAt})
         }
 
@@ -116,6 +116,7 @@ const Page = () => {
                     {modalIsOpen &&
                         <TaskModalCreate 
                             closeModal={() => setModalIsOpen(false)}
+                            loadTasks={loadTasks}
                         />
                     }
                 </section>

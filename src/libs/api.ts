@@ -1,3 +1,5 @@
+import { Task } from "@/types/Task"
+
 const BASE_API = 'http://localhost:8000/api'
 
 const request = async (method: string, endpoint: string, params: object, token: null | string = null) => {
@@ -56,6 +58,12 @@ export const api = {
         let token = localStorage.getItem('token')
         let endPoint = order ? `/tasks?order=${order}` : '/tasks'
         let json = await request('get', endPoint, {}, token)
+        return json
+    },
+    newTask: async ({title, description, author}: Task) => {
+        let body = {title, description, author}
+        let token = localStorage.getItem('token')
+        let json = await request('post', '/task/new', body, token)
         return json
     }
 }

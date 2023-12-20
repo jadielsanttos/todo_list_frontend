@@ -2,7 +2,7 @@ import styles from "@/styles/admin/app.module.css"
 import { FaEllipsis } from "react-icons/fa6";
 
 type Props = {
-    key: number,
+    key?: number,
     title: string,
     description?: string, 
     updated_at?: string

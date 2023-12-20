@@ -3,10 +3,11 @@ import { MdClose } from "react-icons/md"
 import { TaskFormCreate } from './TaskFormCreate'
 
 type Props = {
-    closeModal: () => void
+    closeModal: () => void,
+    loadTasks:  () => void
 }
 
-export const TaskModalCreate = ({closeModal}: Props) => {
+export const TaskModalCreate = ({closeModal, loadTasks}: Props) => {
     return (
         <div className={styles.shadow_modal}>
             <div className={styles.area_modal_create_task}>
@@ -15,7 +16,10 @@ export const TaskModalCreate = ({closeModal}: Props) => {
                         <MdClose />
                     </div>
                 </div>
-                <TaskFormCreate />
+                <TaskFormCreate 
+                    closeModal={closeModal}
+                    loadTasks={loadTasks}
+                />
             </div>
         </div>
     )

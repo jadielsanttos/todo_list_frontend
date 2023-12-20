@@ -23,14 +23,6 @@
     box-shadow: var(--box-shadow-default);
 }
 
-.section_form .box_form .alert_danger {
-    background-color: rgb(223, 78, 78);
-    color: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
 .section_form .box_form .form_item .row_input {
     width: 100%;
     margin-bottom: 20px;
