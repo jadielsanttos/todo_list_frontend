@@ -15,6 +15,7 @@ import { TitlePage } from '@/components/partials/TitlePage'
 import { User } from '@/types/User'
 import { TaskCard } from '@/components/admin/TaskCard'
 import { Task } from '@/types/Task'
+import { TaskModalCreate } from '@/components/admin/TaskModalCreate'
 
 
 const Page = () => {
@@ -23,6 +24,7 @@ const Page = () => {
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
     const [loggedUser, setLoggedUser] = useState<User | null>(null)
     const [totalTasks, setTotalTasks] = useState<Task[] | null>(null)
+    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
     const [msgUpdatedAt, setMsgUpdatedAt] = useState<string>('Editado agora mesmo')
 
     const titlePage: string = "Editadas recentemente"
@@ -86,7 +88,8 @@ const Page = () => {
                     }
                     <main className={styles.right_side}>
                         <Header 
-                            onClick={toggleSideBar}
+                            toggleSideBar={toggleSideBar}
+                            toggleModalCreateTask={() => setModalIsOpen(true)}
                         />
                         <div className={styles.area_content_page}>
                             <TitlePage 
@@ -110,6 +113,11 @@ const Page = () => {
                             }
                         </div>
                     </main>
+                    {modalIsOpen &&
+                        <TaskModalCreate 
+                            closeModal={() => setModalIsOpen(false)}
+                        />
+                    }
                 </section>
             }
         </>

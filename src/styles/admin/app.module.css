@@ -48,3 +48,74 @@
     cursor: pointer;
     padding: 5px;
 }
+
+.shadow_modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shadow_modal .area_modal_create_task {
+    max-width: 500px;
+    width: 100%;
+    background-color: #444;
+    border-radius: var(--border-radius-default);
+    padding: 20px;
+}
+
+.shadow_modal .area_modal_create_task .header_modal {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.shadow_modal .area_modal_create_task .header_modal .btn_close_modal {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.shadow_modal .area_modal_create_task form .row_input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.shadow_modal .area_modal_create_task form .row_input label, 
+.shadow_modal .area_modal_create_task form .row_input input {
+    width: 100%;
+}
+
+.shadow_modal .area_modal_create_task form .row_input input[type="text"] {
+    border: 1px solid #555;
+    outline: 0;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #fff;
+    font-size: 16px;
+    border-radius: var(--border-radius-default);
+    margin-top: 10px;
+}
+
+.shadow_modal .area_modal_create_task form .row_input input[type="text"]::placeholder {
+    color: #fff;
+}
+
+.shadow_modal .area_modal_create_task form .row_input input[type="text"]:focus {
+    border-color: var(--color-primary);
+}
+
+.shadow_modal .area_modal_create_task form .row_input_submit input[type="submit"] {
+    background-color: var(--color-primary);
+    color: #000;
+    font-size: 16px;
+    border-radius: var(--border-radius-default);
+    box-shadow: var(--box-shadow-default);
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+}
