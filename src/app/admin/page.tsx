@@ -4,8 +4,6 @@ import styles from '@/styles/admin/app.module.css'
 import { api } from "@/libs/api"
 import { data } from '@/helpers/data'
 
-import moment from "moment"
-
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -59,33 +57,11 @@ const Page = () => {
         const data = response.data
 
         for(let i in data) {
-            const updated_at_formated = data[i].updated_at
-            calculateDiffBetweenDates(updated_at_formated)
+            const updated_at = data[i].updated_at
+            data.calculateDiffBetweenDates({updated_at, setMsgUpdatedAt})
         }
 
         setTotalTasks(response.data)
-    }
-
-    const calculateDiffBetweenDates = (updated_at: Date) => {
-        const targetDate = new Date(updated_at).toLocaleString('pt-BR', {timeZone: 'UTC'})
-        const currentDate = new Date().toLocaleString('pt-BR', {timeZone: 'UTC'})
-        const difference = moment(targetDate, "DD/MM/YYYY HH:mm:ss").diff(moment(currentDate, "DD/MM/YYYY HH:mm:ss"))
-        
-        const minutes = Math.abs(Math.round(moment.duration(difference).asMinutes()))
-        const hours = Math.abs(Math.round(moment.duration(difference).asHours()))
-        const days = Math.abs(Math.round(moment.duration(difference).asDays()))
-
-        if(days > 0) {
-            setMsgUpdatedAt(`Editado há ${days}d atrás`)
-        }
-
-        if(hours > 0 && hours <= 24) {
-            setMsgUpdatedAt(`Editado há ${hours}h atrás`)
-        }
-
-        if(minutes > 0 && minutes <= 60) {
-            setMsgUpdatedAt(`Editado há ${minutes}m atrás`)
-        }
     }
 
     useEffect(() => {
