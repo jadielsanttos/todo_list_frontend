@@ -3,22 +3,24 @@
 import { api } from '@/libs/api'
 import styles from '@/styles/admin/app.module.css'
 import { Task } from '@/types/Task'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { ErrorMessage } from '../partials/ErrorMessage'
 
 type Props = {
     closeModal: () => void,
-    loadTasks:  () => void
+    closeModalTask: () => void
+    loadTasks: () => void,
+    dataTask: Task | null
 }
 
-export const TaskFormCreate = ({closeModal, loadTasks}: Props) => {
+export const TaskFormCreate = ({closeModal, closeModalTask, loadTasks, dataTask}: Props) => {
     const [title, setValueInputTitle] = useState<string>('')
     const [description, setValueInputDescription] = useState<string>('')
     const [author, setValueInputAuthor] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
 
-    const createTask = async (event: FormEvent<HTMLInputElement>) => {
+    const updateOrNew = async (event: FormEvent<HTMLInputElement>) => {
         event.preventDefault()
         setError('')
         setLoading(true)
@@ -29,20 +31,35 @@ export const TaskFormCreate = ({closeModal, loadTasks}: Props) => {
                 description,
                 author
             }
-    
-            const response = await api.newTask(body)
-    
-            if(response.data) {
-                setLoading(false)
+            
+            if(dataTask) {
+                await api.updateTask(body, dataTask.id ?? 0)
+            }
+
+            if(!dataTask) {
+                await api.newTask(body)
             }
 
             closeModal()
+            closeModalTask()
             loadTasks()
         }
 
         setLoading(false)
         return setError('Você precisa preencher todos os campos')
     }
+
+    const verifyAction = () => {
+        if(dataTask) {
+            setValueInputTitle(dataTask.title)
+            setValueInputDescription(dataTask.description)
+            setValueInputAuthor(dataTask.author)
+        }
+    }
+
+    useEffect(() => {
+        verifyAction()
+    },[])
 
     return (
         <form className="task_create_form">
@@ -85,7 +102,7 @@ export const TaskFormCreate = ({closeModal, loadTasks}: Props) => {
                 <input 
                     type="submit" 
                     value={loading ? 'Carregando...' : 'Concluir'}
-                    onClick={(event) => createTask(event)}
+                    onClick={(event) => updateOrNew(event)}
                 />
             </div>
         </form>

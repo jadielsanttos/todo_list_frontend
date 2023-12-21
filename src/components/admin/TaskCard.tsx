@@ -9,10 +9,11 @@ type Props = {
     description?: string, 
     updated_at?: string,
     modalOpened: number,
-    toggleModal: (id: number) => void
+    toggleModal: (id: number) => void,
+    openModalCreateTask: (id: number) => void
 }
 
-export const TaskCard = ({id, title, description, updated_at, modalOpened, toggleModal}: Props) => {
+export const TaskCard = ({id, title, description, updated_at, modalOpened, toggleModal, openModalCreateTask}: Props) => {
     return (
         <div className={styles.task_card}>
             <div className={styles.left_content_card}>
@@ -38,7 +39,7 @@ export const TaskCard = ({id, title, description, updated_at, modalOpened, toggl
                 <div className={styles.modal_task_card}>
                     <div className={styles.area_content_modal}>
                         <div className={styles.btn_update}>
-                            <button>Editar</button>
+                            <button onClick={() => openModalCreateTask(id ? id : 0)}>Editar</button>
                         </div>
                         <div className={styles.btn_delete}>
                             <button>Deletar</button>

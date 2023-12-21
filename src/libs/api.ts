@@ -10,7 +10,7 @@ const request = async (method: string, endpoint: string, params: object, token: 
 
     let headers = {
         "Content-Type": "application/json",
-        "access": "application/json",
+        "Access": "application/json",
         "Authorization": ""
     }
 
@@ -60,10 +60,21 @@ export const api = {
         let json = await request('get', endPoint, {}, token)
         return json
     },
-    newTask: async ({title, description, author}: Task) => {
-        let body = {title, description, author}
+    findTaskById: async (id: number) => {
+        let token = localStorage.getItem('token')
+        let endPoint = `/task/${id}`
+        let json = await request('get', endPoint, {}, token)
+        return json
+    },
+    newTask: async (body: Task) => {
         let token = localStorage.getItem('token')
         let json = await request('post', '/task/new', body, token)
+        return json
+    },
+    updateTask: async (body: Task, taskID: number) => {
+        let token = localStorage.getItem('token')
+        let endPoint = `/task/update/${taskID}`
+        let json = await request('put', endPoint, body, token)
         return json
     }
 }
