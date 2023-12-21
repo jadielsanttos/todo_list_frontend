@@ -15,11 +15,14 @@ import { api } from "@/libs/api"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { TaskCard } from "@/components/admin/TaskCard"
+import { TaskModalCreate } from "@/components/admin/TaskModalCreate"
 
 const Page = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [widthProgressBar, setWidthProgressBar] = useState<number>(20)
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
+    const [modalOfEachTask, setModalOfEachTask] = useState<number>(0)
+    const [modalCreateTask, setModalCreateTask] = useState<boolean>(false)
     const [loggedUser, setLoggedUser] = useState<User | null>(null)
     const [totalTasks, setTotalTasks] = useState<Task[] | null>(null)
 
@@ -46,6 +49,14 @@ const Page = () => {
 
     const toggleSideBar = () => {
         setSideBarOpen(!sideBarOpen)
+    }
+
+    const toggleModalOfEachTask = (id: number) => {
+        if(modalOfEachTask === id) {
+            setModalOfEachTask(0)
+        }else {
+            setModalOfEachTask(id)
+        }
     }
 
     const loadTasks = async () => {
@@ -75,7 +86,8 @@ const Page = () => {
                     }
                     <main className={styles.right_side}>
                         <Header 
-                            onClick={toggleSideBar}
+                            toggleSideBar={toggleSideBar}
+                            toggleModalCreateTask={() => setModalCreateTask(true)}
                         />
                         <div className={styles.area_content_page}>
                             <TitlePage 
@@ -85,9 +97,11 @@ const Page = () => {
                                 <div className={styles.area_tasks}>
                                     {totalTasks.map((item) => (
                                         <TaskCard 
-                                            key={item.id}
+                                            id={item.id}
                                             title={item.title}
                                             description={item.description}
+                                            modalOpened={modalOfEachTask}
+                                            toggleModal={() => toggleModalOfEachTask(item.id ? item.id : 0)}
                                         />
                                     ))}
                                 </div>  
@@ -99,6 +113,12 @@ const Page = () => {
                             }
                         </div>
                     </main>
+                    {modalCreateTask &&
+                        <TaskModalCreate 
+                            closeModal={() => setModalCreateTask(false)}
+                            loadTasks={loadTasks}
+                        />
+                    }
                 </section>
             }
         </>

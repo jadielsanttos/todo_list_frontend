@@ -24,7 +24,8 @@ const Page = () => {
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
     const [loggedUser, setLoggedUser] = useState<User | null>(null)
     const [totalTasks, setTotalTasks] = useState<Task[] | null>(null)
-    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
+    const [modalOfEachTask, setModalOfEachTask] = useState<number>(0)
+    const [modalCreateTask, setModalCreateTask] = useState<boolean>(false)
     const [msgUpdatedAt, setMsgUpdatedAt] = useState<string>('Editado agora mesmo')
 
     const titlePage: string = "Editadas recentemente"
@@ -50,6 +51,14 @@ const Page = () => {
 
     const toggleSideBar = () => {
         setSideBarOpen(!sideBarOpen)
+    }
+
+    const toggleModalOfEachTask = (id: number) => {
+        if(modalOfEachTask === id) {
+            setModalOfEachTask(0)
+        }else {
+            setModalOfEachTask(id)
+        }
     }
 
     const loadTasks = async () => {
@@ -89,7 +98,7 @@ const Page = () => {
                     <main className={styles.right_side}>
                         <Header 
                             toggleSideBar={toggleSideBar}
-                            toggleModalCreateTask={() => setModalIsOpen(true)}
+                            toggleModalCreateTask={() => setModalCreateTask(true)}
                         />
                         <div className={styles.area_content_page}>
                             <TitlePage 
@@ -99,9 +108,11 @@ const Page = () => {
                                 <div className={styles.area_tasks}>
                                     {totalTasks.map((item) => (
                                         <TaskCard 
-                                            key={item.id}
+                                            id={item.id}
                                             title={item.title}
                                             updated_at={msgUpdatedAt}
+                                            modalOpened={modalOfEachTask}
+                                            toggleModal={() => toggleModalOfEachTask(item.id ? item.id : 0)}
                                         />
                                     ))}
                                 </div>  
@@ -113,9 +124,9 @@ const Page = () => {
                             }
                         </div>
                     </main>
-                    {modalIsOpen &&
+                    {modalCreateTask &&
                         <TaskModalCreate 
-                            closeModal={() => setModalIsOpen(false)}
+                            closeModal={() => setModalCreateTask(false)}
                             loadTasks={loadTasks}
                         />
                     }

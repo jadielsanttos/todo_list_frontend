@@ -13,12 +13,14 @@
     margin-top: 20px;
 }
 
+/* Task Card */
 .area_tasks .task_card {
     width: 100%;
     border-radius: var(--border-radius-default);
     box-shadow: var(--box-shadow-default);
     background-color: #333;
     padding: 20px;
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,10 +51,46 @@
     padding: 5px;
 }
 
+.area_tasks .task_card .modal_task_card {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    z-index: 99;
+    width: 120px;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 10px
+}
+
+.area_tasks .task_card .modal_task_card .area_content_modal {
+    padding: 10px;
+}
+
+.area_tasks .task_card .modal_task_card .area_content_modal button {
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    color: #fff;
+    border: 0;
+    outline: 0;
+    border-radius: var(--border-radius-default);
+    font-size: 16px;
+    text-align: start;
+    padding: 5px 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.area_tasks .task_card .modal_task_card .area_content_modal button:hover {
+    background-color: var(--bg-color-default);
+}
+
+/* Modal Create/Edit Task */
 .shadow_modal {
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
     position: absolute;
     z-index: 99;
     display: flex;
@@ -63,19 +101,25 @@
 .shadow_modal .area_modal_create_task {
     max-width: 500px;
     width: 100%;
-    background-color: #444;
+    background-color: var(--bg-color-default);
     border-radius: var(--border-radius-default);
     padding: 20px;
 }
 
 .shadow_modal .area_modal_create_task .header_modal {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.shadow_modal .area_modal_create_task .header_modal .title {
+    font-size: 20px;
 }
 
 .shadow_modal .area_modal_create_task .header_modal .btn_close_modal {
     cursor: pointer;
-    font-size: 20px;
+    font-size: 27px;
 }
 
 .shadow_modal .area_modal_create_task form .row_input {
@@ -89,7 +133,7 @@
 }
 
 .shadow_modal .area_modal_create_task form .row_input input[type="text"] {
-    border: 1px solid #555;
+    border: 1px solid #444;
     outline: 0;
     padding: 10px 20px;
     background-color: transparent;
@@ -114,7 +158,7 @@
     border-radius: var(--border-radius-default);
     box-shadow: var(--box-shadow-default);
     padding: 10px 20px;
-    margin-top: 10px;
+    margin: 10px 0;
     border: 0;
     outline: 0;
     cursor: pointer;
