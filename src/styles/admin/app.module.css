@@ -34,7 +34,7 @@
     white-space: nowrap;
 }
 
-.area_tasks .task_card .middle_content_card .span_single {
+.area_tasks .task_card .middle_content_card span {
     display: block;
     width: 220px;
     text-overflow: ellipsis;

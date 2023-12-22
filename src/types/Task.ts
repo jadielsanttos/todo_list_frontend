@@ -3,5 +3,5 @@ export type Task = {
     title: string,
     description: string,
     author: string,
-    updated_at?: Date
+    msg_updated_at?: string
 }

@@ -27,7 +27,6 @@ const Page = () => {
     const [dataTask, setDataTask] = useState<Task | null>(null)
     const [modalOfEachTask, setModalOfEachTask] = useState<number>(0)
     const [modalCreateTask, setModalCreateTask] = useState<boolean>(false)
-    const [msgUpdatedAt, setMsgUpdatedAt] = useState<string>('Editado agora mesmo')
 
     const titlePage: string = "Editadas recentemente"
 
@@ -84,14 +83,9 @@ const Page = () => {
         const order = 'updated_at'
         const response = await api.getTasks(order)
 
-        const responseData = response.data
-
-        for(let i in responseData) {
-            const updated_at = responseData[i].updated_at
-            data.calculateDiffBetweenDates({updated_at, setMsgUpdatedAt})
+        if(response.data) {
+            setTotalTasks(response.data)
         }
-
-        setTotalTasks(response.data)
     }
 
     useEffect(() => {
@@ -129,10 +123,11 @@ const Page = () => {
                                         <TaskCard 
                                             id={item.id}
                                             title={item.title}
-                                            updated_at={msgUpdatedAt}
+                                            msg_updated_at={item.msg_updated_at}
                                             modalOpened={modalOfEachTask}
-                                            toggleModal={() => toggleModalOfEachTask(item.id ? item.id : 0)}
-                                            openModalCreateTask={() => openingModalCreateTask(item.id ? item.id : 0)}
+                                            toggleModal={() => toggleModalOfEachTask(item.id ?? 0)}
+                                            openModalCreateTask={() => openingModalCreateTask(item.id ?? 0)}
+                                            onDelete={loadTasks}
                                         />
                                     ))}
                                 </div>  

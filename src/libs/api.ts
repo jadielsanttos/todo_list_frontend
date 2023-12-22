@@ -76,5 +76,11 @@ export const api = {
         let endPoint = `/task/update/${taskID}`
         let json = await request('put', endPoint, body, token)
         return json
+    },
+    deleteTask: async (taskID: number) => {
+        let token = localStorage.getItem('token')
+        let endPoint = `/task/delete/${taskID}`
+        let json = await request('delete', endPoint, {}, token)
+        return json
     }
 }
