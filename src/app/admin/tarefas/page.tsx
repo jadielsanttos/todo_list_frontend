@@ -21,7 +21,7 @@ const Page = () => {
     const [loading, setLoading] = useState<boolean>(true)
     const [widthProgressBar, setWidthProgressBar] = useState<number>(20)
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
-    const [modalOfEachTask, setModalOfEachTask] = useState<number>(0)
+    const [modalOpened, setModalOpened] = useState<number>(0)
     const [dataTask, setDataTask] = useState<Task | null>(null)
     const [modalCreateTask, setModalCreateTask] = useState<boolean>(false)
     const [loggedUser, setLoggedUser] = useState<User | null>(null)
@@ -47,23 +47,17 @@ const Page = () => {
             redirect.push('/auth/login')
         }
 
-        setWidthProgressBar(20)
+        setWidthProgressBar(0)
     }
 
     const toggleSideBar = () => {
         setSideBarOpen(!sideBarOpen)
     }
 
-    const toggleModalOfEachTask = (id: number) => {
-        if(modalOfEachTask === id) {
-            setModalOfEachTask(0)
-        }else {
-            setModalOfEachTask(id)
-        }
-    }
-
     const openingModalCreateTask = async (id: number) => {
+        setWidthProgressBar(0)
         setLoading(true)
+
         const response = await api.findTaskById(id)
 
         if(response.data) {
@@ -116,12 +110,14 @@ const Page = () => {
                                 <div className={styles.area_tasks}>
                                     {totalTasks.map((item) => (
                                         <TaskCard 
+                                            key={item.id}
                                             id={item.id}
                                             title={item.title}
                                             description={item.description}
-                                            modalOpened={modalOfEachTask}
-                                            toggleModal={() => toggleModalOfEachTask(item.id ? item.id : 0)}
-                                            openModalCreateTask={() => openingModalCreateTask(item.id ? item.id : 0)}
+                                            openModalCreateTask={() => openingModalCreateTask(item.id ?? 0)}
+                                            onDelete={loadTasks}
+                                            modalOpened={modalOpened}
+                                            setModalOpened={setModalOpened}
                                         />
                                     ))}
                                 </div>  
@@ -135,10 +131,9 @@ const Page = () => {
                     </main>
                     {modalCreateTask &&
                         <TaskModalCreate 
-                        closeModal={closingModalCreateTask}
-                        closeModalTask={() => setModalOfEachTask(0)}
-                        loadTasks={loadTasks}
-                        dataTask={dataTask}
+                            closeModal={closingModalCreateTask}
+                            loadTasks={loadTasks}
+                            dataTask={dataTask}
                         />
                     }
                 </section>

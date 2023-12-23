@@ -20,13 +20,13 @@ import { TaskModalCreate } from '@/components/admin/TaskModalCreate'
 
 const Page = () => {
     const [loading, setLoading] = useState<boolean>(true)
-    const [widthProgressBar, setWidthProgressBar] = useState<number>(20)
+    const [widthProgressBar, setWidthProgressBar] = useState<number>(0)
     const [sideBarOpen, setSideBarOpen] = useState<boolean>(true)
     const [loggedUser, setLoggedUser] = useState<User | null>(null)
     const [totalTasks, setTotalTasks] = useState<Task[] | null>(null)
     const [dataTask, setDataTask] = useState<Task | null>(null)
-    const [modalOfEachTask, setModalOfEachTask] = useState<number>(0)
     const [modalCreateTask, setModalCreateTask] = useState<boolean>(false)
+    const [modalOpened, setModalOpened] = useState<number>(0)
 
     const titlePage: string = "Editadas recentemente"
 
@@ -48,23 +48,17 @@ const Page = () => {
             redirect.push('/auth/login')
         }
 
-        setWidthProgressBar(20)
+        setWidthProgressBar(0)
     }
 
     const toggleSideBar = () => {
         setSideBarOpen(!sideBarOpen)
     }
 
-    const toggleModalOfEachTask = (id: number) => {
-        if(modalOfEachTask === id) {
-            setModalOfEachTask(0)
-        }else {
-            setModalOfEachTask(id)
-        }
-    }
-
     const openingModalCreateTask = async (id: number) => {
+        setWidthProgressBar(0)
         setLoading(true)
+        
         const response = await api.findTaskById(id)
 
         if(response.data) {
@@ -120,14 +114,15 @@ const Page = () => {
                             {totalTasks !== null &&
                                 <div className={styles.area_tasks}>
                                     {totalTasks.map((item) => (
-                                        <TaskCard 
+                                        <TaskCard
+                                            key={item.id}
                                             id={item.id}
                                             title={item.title}
                                             msg_updated_at={item.msg_updated_at}
-                                            modalOpened={modalOfEachTask}
-                                            toggleModal={() => toggleModalOfEachTask(item.id ?? 0)}
                                             openModalCreateTask={() => openingModalCreateTask(item.id ?? 0)}
                                             onDelete={loadTasks}
+                                            modalOpened={modalOpened}
+                                            setModalOpened={setModalOpened}
                                         />
                                     ))}
                                 </div>  
@@ -142,7 +137,6 @@ const Page = () => {
                     {modalCreateTask &&
                         <TaskModalCreate 
                             closeModal={closingModalCreateTask}
-                            closeModalTask={() => setModalOfEachTask(0)}
                             loadTasks={loadTasks}
                             dataTask={dataTask}
                         />

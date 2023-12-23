@@ -5,12 +5,11 @@ import { Task } from '@/types/Task'
 
 type Props = {
     closeModal: () => void,
-    closeModalTask: () => void,
     loadTasks: () => void,
     dataTask: Task | null
 }
 
-export const TaskModalCreate = ({closeModal, closeModalTask, loadTasks, dataTask}: Props) => {
+export const TaskModalCreate = ({closeModal, loadTasks, dataTask}: Props) => {
     return (
         <div className={styles.shadow_modal}>
             <div className={styles.area_modal_create_task}>
@@ -24,7 +23,6 @@ export const TaskModalCreate = ({closeModal, closeModalTask, loadTasks, dataTask
                 </div>
                 <TaskFormCreate 
                     closeModal={closeModal}
-                    closeModalTask={closeModalTask}
                     loadTasks={loadTasks}
                     dataTask={dataTask}
                 />

@@ -78,9 +78,9 @@
 }
 
 .area_loading .progress_bar_empty {
-    width: 170px;
+    width: 200px;
     height: 7px;
-    border: 1px solid #333;
+    border: 1px solid #444;
 }
 
 .area_loading .progress_bar_empty .progress_bar_fillable {

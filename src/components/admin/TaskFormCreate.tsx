@@ -8,12 +8,11 @@ import { ErrorMessage } from '../partials/ErrorMessage'
 
 type Props = {
     closeModal: () => void,
-    closeModalTask: () => void
     loadTasks: () => void,
     dataTask: Task | null
 }
 
-export const TaskFormCreate = ({closeModal, closeModalTask, loadTasks, dataTask}: Props) => {
+export const TaskFormCreate = ({closeModal, loadTasks, dataTask}: Props) => {
     const [title, setValueInputTitle] = useState<string>('')
     const [description, setValueInputDescription] = useState<string>('')
     const [author, setValueInputAuthor] = useState<string>('')
@@ -41,7 +40,6 @@ export const TaskFormCreate = ({closeModal, closeModalTask, loadTasks, dataTask}
             }
 
             closeModal()
-            closeModalTask()
             loadTasks()
         }
 

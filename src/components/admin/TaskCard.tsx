@@ -2,20 +2,25 @@
 
 import { api } from "@/libs/api";
 import styles from "@/styles/admin/app.module.css"
+import { useEffect } from "react";
 import { FaEllipsis } from "react-icons/fa6";
 
 type Props = {
     id?: number,
     title: string,
-    description?: string, 
+    description?: string,
     msg_updated_at?: string,
-    modalOpened: number,
-    toggleModal: (id: number) => void,
     openModalCreateTask: (id: number) => void,
-    onDelete: () => void
+    onDelete: () => void,
+    modalOpened: number,
+    setModalOpened: (taskID: number) => void
 }
 
-export const TaskCard = ({id, title, description, msg_updated_at, modalOpened, toggleModal, openModalCreateTask, onDelete}: Props) => {
+export const TaskCard = (
+    {
+        id, title, description, msg_updated_at, modalOpened, 
+        openModalCreateTask, onDelete, setModalOpened
+    }: Props) => {
     
     const removeTask = async (taskID: number) => {
         if(confirm('Tem certeza que deseja excluir?')) {
@@ -26,6 +31,23 @@ export const TaskCard = ({id, title, description, msg_updated_at, modalOpened, t
             }
         }
     }
+
+    const handleCloseModalCardTask = (event: MouseEvent) => {
+        const getTagName = (event.target as Element).tagName
+        
+        if(!['svg','path'].includes(getTagName)) {
+            setModalOpened(0)
+        }
+    }
+
+    useEffect(() => {
+        window.removeEventListener('click', handleCloseModalCardTask)
+        window.addEventListener('click', handleCloseModalCardTask)
+
+        return () => {
+            window.removeEventListener('click', handleCloseModalCardTask)
+        }
+    },[modalOpened])
     
     return (
         <div className={styles.task_card}>
@@ -42,7 +64,7 @@ export const TaskCard = ({id, title, description, msg_updated_at, modalOpened, t
             </div>
             <div className={styles.right_content_card}>
                 <span 
-                    onClick={() => toggleModal(id ?? 0)}
+                    onClick={() => setModalOpened(id ?? 0)}
                 >
                     <FaEllipsis />
                 </span>
