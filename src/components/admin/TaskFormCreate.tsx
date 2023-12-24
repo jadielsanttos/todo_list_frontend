@@ -4,7 +4,7 @@ import { api } from '@/libs/api'
 import styles from '@/styles/admin/app.module.css'
 import { Task } from '@/types/Task'
 import { FormEvent, useEffect, useState } from 'react'
-import { ErrorMessage } from '../partials/ErrorMessage'
+import { FieldRequired } from './FieldRequired'
 
 type Props = {
     closeModal: () => void,
@@ -16,12 +16,12 @@ export const TaskFormCreate = ({closeModal, loadTasks, dataTask}: Props) => {
     const [title, setValueInputTitle] = useState<string>('')
     const [description, setValueInputDescription] = useState<string>('')
     const [author, setValueInputAuthor] = useState<string>('')
-    const [error, setError] = useState<string>('')
+    const [error, setError] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
 
     const updateOrNew = async (event: FormEvent<HTMLInputElement>) => {
         event.preventDefault()
-        setError('')
+        setError(false)
         setLoading(true)
 
         if(title && description && author) {
@@ -44,7 +44,7 @@ export const TaskFormCreate = ({closeModal, loadTasks, dataTask}: Props) => {
         }
 
         setLoading(false)
-        return setError('Você precisa preencher todos os campos')
+        return setError(true)
     }
 
     const verifyAction = () => {
@@ -61,40 +61,47 @@ export const TaskFormCreate = ({closeModal, loadTasks, dataTask}: Props) => {
 
     return (
         <form className="task_create_form">
-            {error !== '' &&
-                <ErrorMessage
-                    error={error}
-                />
-            }
             <div className={styles.row_input}>
                 <label htmlFor="Título">Título</label>
                 <input 
                     type="text" 
+                    className={error ? styles.alert_validation_form_error : ''}
                     placeholder='Título da tarefa'
                     disabled={loading ? true : false}
                     value={title}
                     onChange={(e) => setValueInputTitle(e.target.value)}
                 />
+                {error &&
+                    <FieldRequired />
+                }
             </div>
             <div className={styles.row_input}>
                 <label htmlFor="Descrição">Descrição</label>
-                <input 
-                    type="text" 
+                <textarea 
+                    rows={4}
+                    className={error ? styles.alert_validation_form_error : ''}
                     placeholder='Descrição da tarefa'
-                    disabled={loading ? true : false}
                     value={description}
+                    disabled={loading ? true : false}
                     onChange={(e) => setValueInputDescription(e.target.value)}
                 />
+                {error &&
+                    <FieldRequired />
+                }
             </div>
             <div className={styles.row_input}>
                 <label htmlFor="Autor">Autor</label>
                 <input 
-                    type="text" 
+                    type="text"
+                    className={error ? styles.alert_validation_form_error : ''}
                     placeholder='Autor da tarefa'
                     disabled={loading ? true : false} 
                     value={author}
                     onChange={(e) => setValueInputAuthor(e.target.value)}
                 />
+                {error &&
+                    <FieldRequired />
+                }
             </div>
             <div className={styles.row_input_submit}>
                 <input 

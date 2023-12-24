@@ -16,11 +16,7 @@ type Props = {
     setModalOpened: (taskID: number) => void
 }
 
-export const TaskCard = (
-    {
-        id, title, description, msg_updated_at, modalOpened, 
-        openModalCreateTask, onDelete, setModalOpened
-    }: Props) => {
+export const TaskCard = ({id, title, description, msg_updated_at, modalOpened,openModalCreateTask, onDelete, setModalOpened}: Props) => {
     
     const removeTask = async (taskID: number) => {
         if(confirm('Tem certeza que deseja excluir?')) {

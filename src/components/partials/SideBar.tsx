@@ -1,5 +1,4 @@
 import styles from "@/styles/partials/app.module.css"
-import Link from "next/link"
 import Image from "next/image";
 
 import { MdHome, MdLogout } from "react-icons/md";
@@ -41,27 +40,19 @@ export const SideBar = ({id, email}: User) => {
                 <nav>
                     <ul>
                         <li>
-                            <Link 
-                                href='/admin' 
-                                className={route == '/admin' ? styles.active : ''}
-                            >
+                            <a href='/admin' className={route == '/admin' ? styles.active : ''}>
                                 <MdHome /> Home
-                            </Link>
+                            </a>
                         </li>
                         <li>
-                            <Link href='/admin/tarefas' 
-                                className={route == '/admin/tarefas' ? styles.active : ''}
-                            >
+                            <a href='/admin/tarefas' className={route == '/admin/tarefas' ? styles.active : ''}>
                                 <FaClipboardList /> Tarefas
-                            </Link>
+                            </a>
                         </li>
                         <li>
-                            <Link 
-                                href='/auth/logout'
-                                onClick={(event) => handleClickLogout(event)}
-                            >
+                            <a href='/auth/logout' onClick={(event) => handleClickLogout(event)}>
                                 <MdLogout /> Sair
-                            </Link>
+                            </a>
                         </li>
                     </ul>
                 </nav>

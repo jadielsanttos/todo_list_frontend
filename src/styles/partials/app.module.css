@@ -103,3 +103,38 @@
     padding: 10px;
     margin-bottom: 20px;
 }
+
+/* Medias */
+@media (max-width: 768px) {
+    .side_bar {
+        width: 100%;
+        height: 20%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-top: 1px solid #444;
+        border-right: 0;
+        border-radius: 10px 10px 0 0;
+    }
+    .side_bar .area_links nav ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 33.33%);
+    }
+}
+
+@media (max-width: 425px) {
+    .header .content_right button  {
+        font-size: 16px;
+        padding: 10px 25px;
+    }
+    .title_page {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 320px) {
+    .title_page {
+        font-size: 20px;
+    }
+}

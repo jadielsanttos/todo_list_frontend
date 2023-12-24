@@ -1,7 +1,8 @@
+/* Template */
 .container {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 
 .right_side {
@@ -9,8 +10,12 @@
     padding: 20px;
 }
 
-.area_content_page, .area_tasks, .area_no_results {
+.area_content_page, .area_total_tasks_list, .area_no_results {
     margin-top: 20px;
+}
+
+.area_content_page .area_total_tasks_list .area_loading_tasks_list {
+    margin-bottom: 20px;
 }
 
 /* Task Card */
@@ -110,7 +115,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 
 .shadow_modal .area_modal_create_task .header_modal .title {
@@ -123,16 +128,18 @@
 }
 
 .shadow_modal .area_modal_create_task form .row_input {
-    width: 100%;
     margin-bottom: 10px;
 }
 
 .shadow_modal .area_modal_create_task form .row_input label, 
-.shadow_modal .area_modal_create_task form .row_input input {
+.shadow_modal .area_modal_create_task form .row_input input, 
+.shadow_modal .area_modal_create_task form .row_input textarea {
     width: 100%;
 }
 
-.shadow_modal .area_modal_create_task form .row_input input[type="text"] {
+.shadow_modal .area_modal_create_task form .row_input input,
+.shadow_modal .area_modal_create_task form .row_input textarea {
+    font-family: 'Poppins', sans-serif;
     border: 1px solid #444;
     outline: 0;
     padding: 10px 20px;
@@ -143,12 +150,19 @@
     margin-top: 10px;
 }
 
-.shadow_modal .area_modal_create_task form .row_input input[type="text"]::placeholder {
+.shadow_modal .area_modal_create_task form .row_input input::placeholder, 
+.shadow_modal .area_modal_create_task form .row_input textarea::placeholder {
     color: #fff;
 }
 
-.shadow_modal .area_modal_create_task form .row_input input[type="text"]:focus {
+.shadow_modal .area_modal_create_task form .row_input input:focus,
+.shadow_modal .area_modal_create_task form .row_input textarea:focus {
     border-color: var(--color-primary);
+}
+
+.shadow_modal .area_modal_create_task form .row_input input.alert_validation_form_error,
+.shadow_modal .area_modal_create_task form .row_input textarea.alert_validation_form_error {
+    border-color: rgb(223, 78, 78);
 }
 
 .shadow_modal .area_modal_create_task form .row_input_submit input[type="submit"] {
@@ -162,4 +176,27 @@
     border: 0;
     outline: 0;
     cursor: pointer;
+}
+
+.shadow_modal .area_modal_create_task form .row_input .text_field_required {
+    font-size: 12px;
+    color: rgb(223, 78, 78);
+    margin-top: 5px;
+}
+
+/* Medias */
+@media (max-width: 500px) {
+    .shadow_modal .area_modal_create_task {
+        margin: 0 20px;
+    }
+    .shadow_modal .area_modal_create_task form .row_input_submit input[type="submit"] {
+        width: 100%;
+    }
+}
+
+@media (max-width: 320px) {
+    .area_no_results, .area_loading_tasks_list {
+        font-size: 13px;
+    }
+    
 }

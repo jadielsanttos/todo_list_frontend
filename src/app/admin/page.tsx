@@ -39,8 +39,8 @@ const Page = () => {
             let response = await api.validateToken()
 
             if(response.error === '') {
-                setLoading(false)
                 setLoggedUser(response.user)
+                setLoading(false)
             }else {
                 redirect.push('/auth/login')
             }
@@ -82,7 +82,18 @@ const Page = () => {
         }
     }
 
+    const verifyScreenWidth = () => {
+        if(window.innerWidth <= 768) {
+            setSideBarOpen(false)
+        }else {
+            setSideBarOpen(true)
+        }
+    }
+
     useEffect(() => {
+        verifyScreenWidth()
+        window.addEventListener('resize', verifyScreenWidth)
+
         verifyLogin()
         loadTasks()
     }, [])
@@ -98,8 +109,8 @@ const Page = () => {
                 <section className={styles.container}>
                     {sideBarOpen &&
                         <SideBar
-                            id={loggedUser !== null ? loggedUser.id : 0}
-                            email={loggedUser !== null ? loggedUser.email : ''}
+                            id={loggedUser ? loggedUser.id : 0}
+                            email={loggedUser ? loggedUser.email : ''}
                         />
                     }
                     <main className={styles.right_side}>
@@ -111,27 +122,34 @@ const Page = () => {
                             <TitlePage 
                                 title={titlePage}
                             />
-                            {totalTasks !== null &&
-                                <div className={styles.area_tasks}>
-                                    {totalTasks.map((item) => (
-                                        <TaskCard
-                                            key={item.id}
-                                            id={item.id}
-                                            title={item.title}
-                                            msg_updated_at={item.msg_updated_at}
-                                            openModalCreateTask={() => openingModalCreateTask(item.id ?? 0)}
-                                            onDelete={loadTasks}
-                                            modalOpened={modalOpened}
-                                            setModalOpened={setModalOpened}
-                                        />
-                                    ))}
-                                </div>  
-                            }
-                            {totalTasks?.length == 0 &&
-                                <div className={styles.area_no_results}>
-                                    <span>Não há tarefas a serem exibidas...</span>
-                                </div>
-                            }
+                            <div className={styles.area_total_tasks_list}>
+                                {!totalTasks &&
+                                    <div className={styles.area_loading_tasks_list}>
+                                        <span>Carregando...</span>
+                                    </div>
+                                }
+                                {totalTasks &&
+                                    <div className={styles.area_tasks}>
+                                        {totalTasks.map((item) => (
+                                            <TaskCard
+                                                key={item.id}
+                                                id={item.id}
+                                                title={item.title}
+                                                msg_updated_at={item.msg_updated_at}
+                                                openModalCreateTask={() => openingModalCreateTask(item.id ?? 0)}
+                                                onDelete={loadTasks}
+                                                modalOpened={modalOpened}
+                                                setModalOpened={setModalOpened}
+                                            />
+                                        ))}
+                                    </div>  
+                                }
+                                {totalTasks?.length == 0 &&
+                                    <div className={styles.area_no_results}>
+                                        <span>Não há tarefas a serem exibidas...</span>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </main>
                     {modalCreateTask &&
