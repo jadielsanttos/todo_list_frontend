@@ -97,7 +97,7 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.8);
     position: absolute;
-    z-index: 99;
+    z-index: 999;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -191,6 +191,9 @@
     }
     .shadow_modal .area_modal_create_task form .row_input_submit input[type="submit"] {
         width: 100%;
+    }
+    .area_tasks .task_card .middle_content_card {
+        display: none;
     }
 }
 

@@ -78,3 +78,9 @@
     text-decoration: none;
     color: var(--color-primary);
 }
+
+@media (max-width: 425px) {
+    .section_form {
+        padding: 80px 20px;
+    }
+}

@@ -51,10 +51,6 @@ const Page = () => {
         setWidthProgressBar(0)
     }
 
-    const toggleSideBar = () => {
-        setSideBarOpen(!sideBarOpen)
-    }
-
     const openingModalCreateTask = async (id: number) => {
         setWidthProgressBar(0)
         setLoading(true)
@@ -109,13 +105,15 @@ const Page = () => {
                 <section className={styles.container}>
                     {sideBarOpen &&
                         <SideBar
-                            id={loggedUser ? loggedUser.id : 0}
-                            email={loggedUser ? loggedUser.email : ''}
+                            userEmail={loggedUser ? loggedUser.email : 'usuário'}
+                            sideBarOpen={sideBarOpen}
+                            setSideBarOpen={setSideBarOpen}
+                            onLogout={() => setLoading(true)}
                         />
                     }
                     <main className={styles.right_side}>
                         <Header 
-                            toggleSideBar={toggleSideBar}
+                            toggleSideBar={() => setSideBarOpen(!sideBarOpen)}
                             toggleModalCreateTask={() => setModalCreateTask(true)}
                         />
                         <div className={styles.area_content_page}>
