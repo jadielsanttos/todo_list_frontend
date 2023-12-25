@@ -37,6 +37,8 @@ export const BoxForm = () => {
             
             if(request.error) {
                 setError(request.error)
+                setEmailValue('')
+                setPasswordValue('')
             }else {
                 localStorage.setItem('token', request.token)
                 redirect.push('/admin')

@@ -31,25 +31,6 @@ const Page = () => {
 
     const redirect = useRouter()
 
-    const verifyLogin = async () => {
-        data.updateWidthProgressBar({widthProgressBar, setWidthProgressBar})
-        
-        if(api.getToken()) {
-            let response = await api.validateToken()
-
-            if(response.error === '') {
-                setLoggedUser(response.user)
-                setLoading(false)
-            }else {
-                redirect.push('/auth/login')
-            }
-        }else {
-            redirect.push('/auth/login')
-        }
-
-        setWidthProgressBar(0)
-    }
-
     const openingModalCreateTask = async (id: number) => {
         setWidthProgressBar(0)
         setLoading(true)
@@ -85,7 +66,7 @@ const Page = () => {
         verifyScreenWidth()
         window.addEventListener('resize', verifyScreenWidth)
         
-        verifyLogin()
+        data.verifyLogin({redirect, widthProgressBar, setWidthProgressBar, setLoggedUser, setLoading})
         loadTasks()
     }, [])
 
@@ -103,6 +84,7 @@ const Page = () => {
                             userEmail={loggedUser ? loggedUser.email : 'usuário'}
                             sideBarOpen={sideBarOpen}
                             setSideBarOpen={setSideBarOpen}
+                            onLogout={() => setLoading(true)}
                         />
                     }
                     <main className={styles.right_side}>
