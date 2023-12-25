@@ -36,7 +36,20 @@ export const TaskFormCreate = ({closeModal, loadTasks, dataTask}: Props) => {
             }
 
             if(!dataTask) {
-                await api.newTask(body)
+                const response = await api.newTask(body)
+
+                if(response.error) {
+                    const valueError = response.error
+
+                    setLoading(false)
+                    alert(valueError)
+
+                    setValueInputTitle('')
+                    setValueInputDescription('')
+                    setValueInputAuthor('')
+                    
+                    return valueError
+                }
             }
 
             closeModal()

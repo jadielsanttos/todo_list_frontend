@@ -24,7 +24,7 @@ export const SideBar = ({userEmail, sideBarOpen, setSideBarOpen, onLogout}: Prop
         onLogout()
 
         let response = await api.logout()
-        
+
         localStorage.removeItem('token')
 
         redirect.push('/auth/login')
