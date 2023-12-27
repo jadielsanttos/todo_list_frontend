@@ -17,7 +17,7 @@ This project are consuming a Laravel API. The user must be logged to **create**,
 
 - [x] Next Route
 - [x] All Fields Validated
-- [x] JWT Authentication
+- [x] Authentication
 - [x] Responsive Design
 - [x] Read All Tasks
 - [x] Read Only One Task
